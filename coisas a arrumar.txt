@@ -1,0 +1,4 @@
+1 - QUestão da string
+2 - Atribuição e problema quando com operador
+3- Sair token invalido
+4 - Espaço nas contas
