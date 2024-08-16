@@ -11,7 +11,7 @@ ESPACO [\t\r ]
 
 %%
 
-{DIGITO}+{ID} {
+{DIGITO}+{ID}|{DIGITO}+"_"{ID} {
     printf("\033[1m\033[91mIdentificador inválido: %s - ", yytext);
     num_erros++;
     printf("Linha: %d\n", num_linhas);
@@ -25,16 +25,16 @@ ESPACO [\t\r ]
     printf("\033[1m\033[92mReal: \033[0m%s\n", yytext);
 }
 
-{ID}"="({DIGITO}+|{DIGITO}+"."{DIGITO}+"+"|"-"|"*"|"/"|"%"{DIGITO}+|{DIGITO}+"."{DIGITO}+)+ {
-    printf("\33[1m\033[38;5;208mAtribuição com operador: \033[0m%s\n", yytext);
+"-"|"+"{DIGITO}+ {
+    printf("\033[1m\033[92mInteiro com sinal: \033[0m%s\n", yytext);
 }
 
-{ID}"="{LETRA}"+"|"-"|"*"|"/"|"%"{LETRA}({LETRA}"+"|"-"|"*"|"/"|"%"{LETRA})* {
-    printf("\33[1m\033[38;5;208mAtribuição com operador: \033[0m%s\n", yytext);
+"-"|"+"{DIGITO}+"."{DIGITO}+ {
+    printf("\033[1m\033[92mReal com sinal: \033[0m%s\n", yytext);
 }
 
-{ID}"="{DIGITO}+|{LETRA}|{DIGITO}+"."{DIGITO}+ {
-    printf("\033[1m\033[38;5;208mAtribuição simples: \033[0m%s\n", yytext);
+"=" {
+    printf("\33[1m\033[38;5;208mSinal de atribuição: \033[0m%s\n", yytext);
 }
 
 {ID} {
@@ -61,10 +61,6 @@ ESPACO [\t\r ]
 
 "^^"[^\n]* {
     printf("\033[1m\033[35mComentário\n");
-}
-
-"."|","|"_" {
-    printf("\033[1m\033[35mEspecial: \33[0m%s\n", yytext);
 }
 
 \n {

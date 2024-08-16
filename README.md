@@ -32,4 +32,4 @@ Por fim, para rodar:
 
 ## Sobre a linguagem Kitty
 
-No analisador léxico, verificamos os comandos de atribuição, os sinais do alfabeto aceitos pela linguagem, os tipos de variáveis (declarações de variável), operadores e sinais matemáticos e lógicos. Tudo isso por meio de gframáticas regulares.
+No analisador léxico, verificamos os sinais de atribuição, os sinais do alfabeto aceitos pela linguagem, os tipos de variáveis (declarações de variável), operadores e sinais matemáticos e lógicos. Tudo isso por meio de gramáticas regulares.
