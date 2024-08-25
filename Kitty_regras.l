@@ -11,18 +11,6 @@ ESPACO [\t\r ]
 
 %%
 
-{ID}"="{DIGITO}+"."{DIGITO}+ {
-    printf("\33[1m\033[38;5;208mComando de atribuição: \033[0m%s\n", yytext);
-}
-
-{ID}"="{DIGITO}+ {
-    printf("\33[1m\033[38;5;208mComando de atribuição: \033[0m%s\n", yytext);
-}
-
-{ID}"="{ID} {
-    printf("\33[1m\033[38;5;208mComando de atribuição: \033[0m%s\n", yytext);
-}
-
 {DIGITO}+{ID}|{DIGITO}+"_"{ID}|"_"{ID}|"_"{ID}{DIGITO}+ {
     printf("\033[1m\033[91mIdentificador inválido: %s - ", yytext);
     num_erros++;
@@ -49,11 +37,15 @@ ESPACO [\t\r ]
     printf("\33[1m\033[93mIdentificador: \33[0m%s\n", yytext);
 }
 
+"="|"@" {
+    printf("\33[1m\033[38;5;208mComando de atribuição: \033[0m%s\n", yytext);
+}
+
 "+"|"-"|"*"|"/"|"%" {
     printf("\033[1m\033[94mOperador matemático: \033[0m%s\n", yytext);
 }
 
-">"|"<"|">="|"<="|"!="|"=="|"&"|"|"|"@" {
+">"|"<"|">="|"<="|"!="|"=="|"&"|"|" {
     printf("\033[1m\033[94mOperador lógico: \033[0m%s\n", yytext);
 }
 
