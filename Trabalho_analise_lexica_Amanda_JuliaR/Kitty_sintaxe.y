@@ -21,27 +21,68 @@ extern int num_erros;
 
 %%
 
-Programa_principal: MAIN PARENTESES_ABRE PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA | error {yyerror("", num_linhas); };
-Comandos: Comando Comandos | Comando | ;
-Comando: Declaracao | Atribuicao | Print | Loop | Condicao | Aritmetica | error {yyerror("", num_linhas); };
+Programa_principal: MAIN PARENTESES_ABRE PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA 
+                    | error {yyerror("", num_linhas); };
+
+Comandos: Comando Comandos 
+          | Comando 
+          | ;
+
+Comando: Declaracao 
+         | Atribuicao 
+         | Print 
+         | Loop 
+         | Condicao 
+         | Aritmetica 
+         | error {yyerror("", num_linhas); };
+
 Declaracao: Tipo Decl SEPARADOR;
-Tipo: INT | DOUBLE;
+
+Tipo: INT 
+      | DOUBLE;
+
 Decl: LISTA_VAR ;
-LISTA_VAR: IDENTIFICADOR Atribui_valor VIRGULA LISTA_VAR | IDENTIFICADOR Atribui_valor;
-Atribui_valor: IGUAL Num | ;
-Num: INTEIRO | REAL ;
+LISTA_VAR: IDENTIFICADOR Atribui_valor VIRGULA LISTA_VAR 
+           | IDENTIFICADOR Atribui_valor;
+
+Atribui_valor: IGUAL Num 
+               | ;
+
+Num: INTEIRO 
+     | REAL ;
+
 Atribuicao: IDENTIFICADOR IGUAL Exp SEPARADOR ;
-Exp: INT x | Num x | IDENTIFICADOR x; 
-x: OPERADOR Exp | ;
+
+Exp: INT x 
+     | Num x 
+     | IDENTIFICADOR x; 
+
+x: OPERADOR Exp 
+   | ;
+
 teste: IDENTIFICADOR LOGICO Num;
+
 inicializador: Tipo IDENTIFICADOR IGUAL Num SEPARADOR teste SEPARADOR Aritmetica;
-Aritmetica: IDENTIFICADOR IGUAL OPERADOR Termo Aritmetica | ;
-Termo: Num | IDENTIFICADOR | PARENTESES_ABRE Exp PARENTESES_FECHA;
-Loop: WHILE PARENTESES_ABRE teste PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA | FOR PARENTESES_ABRE inicializador PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA;
-Condicao: IF PARENTESES_ABRE teste PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA | IF PARENTESES_ABRE teste PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA ELSE CHAVE_ABRE Comandos CHAVE_FECHA;
+
+Aritmetica: IDENTIFICADOR IGUAL OPERADOR Termo Aritmetica 
+            | ;
+
+Termo: Num 
+       | IDENTIFICADOR 
+       | PARENTESES_ABRE Exp PARENTESES_FECHA;
+
+Loop: WHILE PARENTESES_ABRE teste PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA 
+      | FOR PARENTESES_ABRE inicializador PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA;
+
+Condicao: IF PARENTESES_ABRE teste PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA 
+          | IF PARENTESES_ABRE teste PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA ELSE CHAVE_ABRE Comandos CHAVE_FECHA;
+
 Print: PRINTF PARENTESES_ABRE ASPAS Qualquer_palavra ASPAS PARENTESES_FECHA SEPARADOR;
+
 Qualquer_palavra: IDENTIFICADOR y;
-y: IDENTIFICADOR y | ;
+
+y: IDENTIFICADOR y 
+   | ;
 
 %%
 
@@ -60,7 +101,7 @@ return num_erros;
 
 int main (int argc, char **argv )
 {
-++argv, --argc; //desconsidera o nome do programa
+++argv, --argc;
 if ( argc > 0 )
 yyin = fopen( argv[0], "r" );
 else
