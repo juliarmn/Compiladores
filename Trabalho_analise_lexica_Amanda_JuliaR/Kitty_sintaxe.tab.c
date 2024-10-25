@@ -542,11 +542,11 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    24,    24,    24,    25,    25,    25,    26,    26,    26,
-      26,    26,    26,    26,    27,    28,    28,    29,    30,    30,
-      31,    31,    32,    32,    33,    34,    34,    34,    35,    35,
-      36,    37,    38,    38,    39,    39,    39,    40,    40,    41,
-      41,    42,    43,    44,    44
+       0,    24,    24,    25,    27,    28,    29,    31,    32,    33,
+      34,    35,    36,    37,    39,    41,    42,    44,    45,    46,
+      48,    49,    51,    52,    54,    56,    57,    58,    60,    61,
+      63,    65,    67,    68,    70,    71,    72,    74,    75,    77,
+      78,    80,    82,    84,    85
 };
 #endif
 
@@ -1172,14 +1172,14 @@ yyreduce:
   switch (yyn)
     {
   case 3: /* Programa_principal: error  */
-#line 24 "Kitty_sintaxe.y"
-                                                                                                  {yyerror("", num_linhas); }
+#line 25 "Kitty_sintaxe.y"
+                            {yyerror("", num_linhas); }
 #line 1178 "Kitty_sintaxe.tab.c"
     break;
 
   case 13: /* Comando: error  */
-#line 26 "Kitty_sintaxe.y"
-                                                                                {yyerror("", num_linhas); }
+#line 37 "Kitty_sintaxe.y"
+                 {yyerror("", num_linhas); }
 #line 1184 "Kitty_sintaxe.tab.c"
     break;
 
@@ -1377,7 +1377,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 46 "Kitty_sintaxe.y"
+#line 87 "Kitty_sintaxe.y"
 
 
 extern FILE *yyin;
@@ -1395,7 +1395,7 @@ return num_erros;
 
 int main (int argc, char **argv )
 {
-++argv, --argc; //desconsidera o nome do programa
+++argv, --argc;
 if ( argc > 0 )
 yyin = fopen( argv[0], "r" );
 else

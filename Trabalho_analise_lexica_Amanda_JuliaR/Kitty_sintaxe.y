@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-extern int yylex(void);  // Declaração de yylex
+extern int yylex(void);
 extern int num_linhas;
 extern int num_erros;
 %}
@@ -42,6 +42,7 @@ Tipo: INT
       | DOUBLE;
 
 Decl: LISTA_VAR ;
+
 LISTA_VAR: IDENTIFICADOR Atribui_valor VIRGULA LISTA_VAR 
            | IDENTIFICADOR Atribui_valor;
 
@@ -90,11 +91,11 @@ extern FILE *yyin;
 int yyerror(char *str, int num_linha) {
 if(strcmp(str,"syntax error")==0){
 num_erros++;
-printf("Erro sintático\n");//Exibe mensagem de erro
+printf("Erro sintático\n");
 }
 else
 {
-printf("O erro aparece próximo à linha %d\n", num_linha);//Exibe a linha do erro
+printf("O erro aparece próximo à linha %d\n", num_linha);
 }
 return num_erros;
 }
