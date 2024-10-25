@@ -162,8 +162,27 @@ extern FILE *yyin, *yyout;
 #define EOB_ACT_END_OF_FILE 1
 #define EOB_ACT_LAST_MATCH 2
     
-    #define YY_LESS_LINENO(n)
-    #define YY_LINENO_REWIND_TO(ptr)
+    /* Note: We specifically omit the test for yy_rule_can_match_eol because it requires
+     *       access to the local variable yy_act. Since yyless() is a macro, it would break
+     *       existing scanners that call yyless() from OUTSIDE yylex.
+     *       One obvious solution it to make yy_act a global. I tried that, and saw
+     *       a 5% performance hit in a non-yylineno scanner, because yy_act is
+     *       normally declared as a register variable-- so it is not worth it.
+     */
+    #define  YY_LESS_LINENO(n) \
+            do { \
+                int yyl;\
+                for ( yyl = n; yyl < yyleng; ++yyl )\
+                    if ( yytext[yyl] == '\n' )\
+                        --yylineno;\
+            }while(0)
+    #define YY_LINENO_REWIND_TO(dst) \
+            do {\
+                const char *p;\
+                for ( p = yy_cp-1; p >= (dst); --p)\
+                    if ( *p == '\n' )\
+                        --yylineno;\
+            }while(0)
     
 /* Return all but the first "n" matched characters back to the input stream. */
 #define yyless(n) \
@@ -321,21 +340,17 @@ void yyfree ( void *  );
 	}
 #define YY_AT_BOL() (YY_CURRENT_BUFFER_LVALUE->yy_at_bol)
 
-/* Begin user sect3 */
 typedef flex_uint8_t YY_CHAR;
 
 FILE *yyin = NULL, *yyout = NULL;
 
 typedef int yy_state_type;
 
+#define YY_FLEX_LEX_COMPAT
 extern int yylineno;
 int yylineno = 1;
 
-extern char *yytext;
-#ifdef yytext_ptr
-#undef yytext_ptr
-#endif
-#define yytext_ptr yytext
+extern char yytext[];
 
 static yy_state_type yy_get_previous_state ( void );
 static yy_state_type yy_try_NUL_trans ( yy_state_type current_state  );
@@ -350,6 +365,9 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	yyleng = (int) (yy_cp - yy_bp); \
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
+	if ( yyleng >= YYLMAX ) \
+		YY_FATAL_ERROR( "token too large, exceeds YYLMAX" ); \
+	yy_flex_strncpy( yytext, (yytext_ptr), yyleng + 1 ); \
 	(yy_c_buf_p) = yy_cp;
 #define YY_NUM_RULES 27
 #define YY_END_OF_BUFFER 28
@@ -478,6 +496,12 @@ static const flex_int16_t yy_chk[152] =
        70
     } ;
 
+/* Table of booleans, true if rule could match eol. */
+static const flex_int32_t yy_rule_can_match_eol[28] =
+    {   0,
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 1, 0, 0, 0,     };
+
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
 
@@ -491,12 +515,17 @@ int yy_flex_debug = 0;
 #define yymore() yymore_used_but_not_detected
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
-char *yytext;
+#ifndef YYLMAX
+#define YYLMAX 8192
+#endif
+
+char yytext[YYLMAX];
+char *yytext_ptr;
 #line 1 "Kitty_regras.l"
 #line 2 "Kitty_regras.l"
     #include <stdio.h>
     #define IDENTIFICADOR 1
-    #define INTEIRO 2
+     #define INTEIRO 2
     #define REAL 3
     #define IGUAL 4
     #define ENDERECO 5
@@ -510,7 +539,7 @@ char *yytext;
     #define COLCHETE_ABRE 13
     #define COLCHETE_FECHA 14
     #define ASPAS 15
-    #define MAIN 16
+     #define MAIN 16
     #define INT 17
     #define DOUBLE 18
     #define VIRGULA 20
@@ -521,9 +550,9 @@ char *yytext;
     #define PRINT 25
 
     int num_linhas = 1, num_erros = 0;
-#line 525 "lex.yy.c"
+#line 554 "lex.yy.c"
 /*Definições*/
-#line 527 "lex.yy.c"
+#line 556 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -740,10 +769,10 @@ YY_DECL
 		}
 
 	{
-#line 39 "Kitty_regras.l"
+#line 40 "Kitty_regras.l"
 
 
-#line 747 "lex.yy.c"
+#line 776 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -789,6 +818,16 @@ yy_find_action:
 
 		YY_DO_BEFORE_ACTION;
 
+		if ( yy_act != YY_END_OF_BUFFER && yy_rule_can_match_eol[yy_act] )
+			{
+			int yyl;
+			for ( yyl = 0; yyl < yyleng; ++yyl )
+				if ( yytext[yyl] == '\n' )
+					
+    yylineno++;
+;
+			}
+
 do_action:	/* This label is used only to access EOF actions. */
 
 		switch ( yy_act )
@@ -802,7 +841,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 41 "Kitty_regras.l"
+#line 42 "Kitty_regras.l"
 {
     printf("\033[1m\033[91mIdentificador inválido: %s - ", yytext);
     num_erros++;
@@ -811,70 +850,71 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 47 "Kitty_regras.l"
+#line 48 "Kitty_regras.l"
 {
-    return MAIN;
+    return (MAIN);
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 51 "Kitty_regras.l"
 {
+
     return INT;
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 55 "Kitty_regras.l"
+#line 56 "Kitty_regras.l"
 {
     return DOUBLE;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 59 "Kitty_regras.l"
+#line 60 "Kitty_regras.l"
 {
     return VIRGULA;
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 63 "Kitty_regras.l"
+#line 64 "Kitty_regras.l"
 {
     return WHILE;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 67 "Kitty_regras.l"
+#line 68 "Kitty_regras.l"
 {
     return FOR;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 71 "Kitty_regras.l"
+#line 72 "Kitty_regras.l"
 {
     return IF;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 75 "Kitty_regras.l"
+#line 76 "Kitty_regras.l"
 {
     return ELSE;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 79 "Kitty_regras.l"
+#line 80 "Kitty_regras.l"
 {
     return PRINT;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 83 "Kitty_regras.l"
+#line 84 "Kitty_regras.l"
 {
     printf("\033[1m\033[92mInteiro: \033[0m%s\n", yytext);
     return INTEIRO;
@@ -882,7 +922,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 88 "Kitty_regras.l"
+#line 89 "Kitty_regras.l"
 {
     printf("\033[1m\033[92mReal: \033[0m%s\n", yytext);
     return REAL;
@@ -890,7 +930,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 93 "Kitty_regras.l"
+#line 94 "Kitty_regras.l"
 {
     printf("\33[1m\033[93mIdentificador: \33[0m%s\n", yytext);
     return IDENTIFICADOR;
@@ -898,7 +938,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 98 "Kitty_regras.l"
+#line 99 "Kitty_regras.l"
 {
     printf("\33[1m\033[38;5;208mComando de atribuição: \033[0m%s\n", yytext);
     return IGUAL;
@@ -906,14 +946,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 103 "Kitty_regras.l"
+#line 104 "Kitty_regras.l"
 {
     return ENDERECO;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 107 "Kitty_regras.l"
+#line 108 "Kitty_regras.l"
 {
     printf("\033[1m\033[94mOperador matemático: \033[0m%s\n", yytext);
     return OPERADOR;
@@ -921,7 +961,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 112 "Kitty_regras.l"
+#line 113 "Kitty_regras.l"
 {
     printf("\033[1m\033[94mOperador lógico: \033[0m%s\n", yytext);
     return LOGICO;
@@ -929,7 +969,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 119 "Kitty_regras.l"
+#line 120 "Kitty_regras.l"
 {
     printf("\033[1m\033[35mSeparador de comando:\033[0m %s\n", yytext);
     return SEPARADOR;
@@ -937,35 +977,36 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 124 "Kitty_regras.l"
+#line 125 "Kitty_regras.l"
 {
     return yytext[0] == '(' ? PARENTESES_ABRE : PARENTESES_FECHA;
+    printf("\033[1m\033[35mPAR:\033[0m %s\n", yytext);
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 128 "Kitty_regras.l"
+#line 130 "Kitty_regras.l"
 {
     return yytext[0] == '{' ? CHAVE_ABRE : CHAVE_FECHA;
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 132 "Kitty_regras.l"
+#line 134 "Kitty_regras.l"
 {
     return yytext[0] == '[' ? COLCHETE_ABRE : COLCHETE_FECHA;
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 136 "Kitty_regras.l"
+#line 138 "Kitty_regras.l"
 {
     printf("\033[1m\033[35mComentário\n");
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 140 "Kitty_regras.l"
+#line 142 "Kitty_regras.l"
 {
     return ASPAS;
 }
@@ -973,19 +1014,19 @@ YY_RULE_SETUP
 case 24:
 /* rule 24 can match eol */
 YY_RULE_SETUP
-#line 145 "Kitty_regras.l"
+#line 147 "Kitty_regras.l"
 {
     num_linhas++;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 149 "Kitty_regras.l"
+#line 151 "Kitty_regras.l"
 
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 151 "Kitty_regras.l"
+#line 153 "Kitty_regras.l"
 {
     printf("\033[1m\033[91mTOKEN INVÁLIDO: %s - ", yytext);
     num_erros++;
@@ -994,10 +1035,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 157 "Kitty_regras.l"
+#line 161 "Kitty_regras.l"
 ECHO;
 	YY_BREAK
-#line 1001 "lex.yy.c"
+#line 1042 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1365,6 +1406,10 @@ static int yy_get_next_buffer (void)
 
 	*--yy_cp = (char) c;
 
+    if ( c == '\n' ){
+        --yylineno;
+    }
+
 	(yytext_ptr) = yy_bp;
 	(yy_hold_char) = *yy_cp;
 	(yy_c_buf_p) = yy_cp;
@@ -1441,6 +1486,11 @@ static int yy_get_next_buffer (void)
 	c = *(unsigned char *) (yy_c_buf_p);	/* cast for 8-bit char's */
 	*(yy_c_buf_p) = '\0';	/* preserve yytext */
 	(yy_hold_char) = *++(yy_c_buf_p);
+
+	if ( c == '\n' )
+		
+    yylineno++;
+;
 
 	return c;
 }
@@ -1908,6 +1958,9 @@ static int yy_init_globals (void)
      * This function is called from yylex_destroy(), so don't allocate here.
      */
 
+    /* We do not touch yylineno unless the option is enabled. */
+    yylineno =  1;
+    
     (yy_buffer_stack) = NULL;
     (yy_buffer_stack_top) = 0;
     (yy_buffer_stack_max) = 0;
@@ -2002,10 +2055,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 157 "Kitty_regras.l"
-
-
-int yywrap () {
-    return 1;
-}
-
+#line 161 "Kitty_regras.l"

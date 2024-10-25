@@ -1,4 +1,5 @@
-main()
+main ()
 {
+    int cu;
 print('Encerrando sistema');
 }

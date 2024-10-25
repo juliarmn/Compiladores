@@ -1,7 +1,7 @@
 %{
     #include <stdio.h>
     #define IDENTIFICADOR 1
-    #define INTEIRO 2
+     #define INTEIRO 2
     #define REAL 3
     #define IGUAL 4
     #define ENDERECO 5
@@ -15,7 +15,7 @@
     #define COLCHETE_ABRE 13
     #define COLCHETE_FECHA 14
     #define ASPAS 15
-    #define MAIN 16
+     #define MAIN 16
     #define INT 17
     #define DOUBLE 18
     #define VIRGULA 20
@@ -27,7 +27,7 @@
 
     int num_linhas = 1, num_erros = 0;
 %}
-
+%option yylineno
 /*Definições*/
 
 DIGITO [0-9]
@@ -35,6 +35,7 @@ LETRA [a-zA-Z]
 ID {LETRA}({LETRA}|{DIGITO}|_)*
 ESPACO [\t\r ]
 ESPECIAL [_]
+
 
 %%
 
@@ -47,8 +48,8 @@ ESPECIAL [_]
 "main" {
     return MAIN;
 }
-
 "int" {
+
     return INT;
 }
 
@@ -123,6 +124,7 @@ ESPECIAL [_]
 
 "("|")" {
     return yytext[0] == '(' ? PARENTESES_ABRE : PARENTESES_FECHA;
+    printf("\033[1m\033[35mPAR:\033[0m %s\n", yytext);
 }
 
 "{"|"}" {
@@ -154,8 +156,5 @@ ESPECIAL [_]
     printf("Linha: %d \n", num_linhas);
 }
 
-%%
 
-int yywrap () {
-    return 1;
-}
+
