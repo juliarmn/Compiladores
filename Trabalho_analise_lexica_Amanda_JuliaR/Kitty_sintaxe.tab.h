@@ -73,7 +73,7 @@ extern int yydebug;
     DOUBLE = 274,                  /* DOUBLE  */
     VIRGULA = 275,                 /* VIRGULA  */
     MAIN = 276,                    /* MAIN  */
-    PRINTF = 277,                  /* PRINTF  */
+    PRINT = 277,                   /* PRINT  */
     WHILE = 278,                   /* WHILE  */
     IF = 279,                      /* IF  */
     ELSE = 280,                    /* ELSE  */

@@ -3,28 +3,48 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-void yyerror(char *s);
 extern int yylineno;
-extern int num_linhas;
 extern int num_erros;
+
+extern FILE *yyin;
+void yyerror(const char *s) {
+num_erros++;
+printf("O erro aparece próximo a linha: %d : %s", yylineno, s);
+}
+
 %}
 %define parse.error detailed
 
 
-%token IDENTIFICADOR INTEIRO REAL OPERADOR ENDERECO
-%token IGUAL SEPARADOR
+%token IDENTIFICADOR 
+%token INTEIRO 
+%token REAL 
+%token OPERADOR 
+%token ENDERECO
+%token IGUAL 
+%token SEPARADOR
 %token LOGICO
 %token ASPAS
-%token PARENTESES_ABRE PARENTESES_FECHA
-%token CHAVE_ABRE CHAVE_FECHA
-%token COLCHETE_ABRE COLCHETE_FECHA
-%token INT DOUBLE VIRGULA MAIN
-%token PRINTF WHILE IF ELSE FOR
-%start Programa_principal
+%token PARENTESES_ABRE 
+%token PARENTESES_FECHA
+%token CHAVE_ABRE 
+%token CHAVE_FECHA
+%token COLCHETE_ABRE 
+%token COLCHETE_FECHA
+%token INT 
+%token DOUBLE 
+%token VIRGULA 
+%token MAIN
+%token PRINT 
+%token WHILE 
+%token IF 
+%token ELSE 
+%token FOR
+%start Programa
 
 %%
 
-Programa_principal: MAIN PARENTESES_ABRE PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA;
+Programa: MAIN PARENTESES_ABRE PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA;
 
 Comandos: Comando Comandos 
           | Comando 
@@ -41,8 +61,8 @@ Declaracao: Tipo Decl SEPARADOR;
 
 Tipo: INT 
       | DOUBLE;
-;
-Decl: LISTA_VAR ;
+
+Decl: LISTA_VAR;
 
 LISTA_VAR: IDENTIFICADOR Atribui_valor VIRGULA LISTA_VAR 
            | IDENTIFICADOR Atribui_valor;
@@ -57,16 +77,17 @@ Atribuicao: IDENTIFICADOR IGUAL Exp SEPARADOR ;
 
 Exp: INT x 
      | Num x 
-     | IDENTIFICADOR x; 
+     | IDENTIFICADOR x
+     | PARENTESES_ABRE Exp PARENTESES_FECHA x; 
 
 x: OPERADOR Exp 
    | %empty;
 
 teste: IDENTIFICADOR LOGICO Num;
 
-inicializador: Tipo IDENTIFICADOR IGUAL Num SEPARADOR teste SEPARADOR Aritmetica;
+inicializador: IDENTIFICADOR IGUAL Num SEPARADOR teste SEPARADOR Aritmetica;
 
-Aritmetica: IDENTIFICADOR IGUAL OPERADOR Termo Aritmetica 
+Aritmetica: IDENTIFICADOR IGUAL Termo OPERADOR Termo 
             | %empty;
 
 Termo: Num 
@@ -79,7 +100,7 @@ Loop: WHILE PARENTESES_ABRE teste PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FEC
 Condicao: IF PARENTESES_ABRE teste PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA 
           | IF PARENTESES_ABRE teste PARENTESES_FECHA CHAVE_ABRE Comandos CHAVE_FECHA ELSE CHAVE_ABRE Comandos CHAVE_FECHA;
 
-Print: PRINTF PARENTESES_ABRE ASPAS Qualquer_palavra ASPAS PARENTESES_FECHA SEPARADOR;
+Print: PRINT PARENTESES_ABRE ASPAS Qualquer_palavra ASPAS PARENTESES_FECHA SEPARADOR;
 
 Qualquer_palavra: IDENTIFICADOR y;
 
@@ -88,15 +109,7 @@ y: IDENTIFICADOR y
 
 %%
 
-extern FILE *yyin;
-void yyerror(char *s) {
-/// if(strcmp(str,"syntax error")==0){
-num_erros++;
-printf("Erro sintático\n");
-printf("O erro aparece próximo a linha: %d : %s", yylineno, s);
-///}
-///return num_erros;
-}
+
 
 int main (int argc, char **argv )
 {
@@ -108,9 +121,9 @@ else
 puts("Falha ao abrir arquivo, nome incorreto ou não especificado. Digite o comando novamente.");
 exit(0);
 }
-
-yyparse();
-
+do{
+      yyparse();
+}while(!feof(yyin));
 if(num_erros==0)
 puts("Análise concluída com sucesso");
 
