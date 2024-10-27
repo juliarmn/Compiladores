@@ -86,11 +86,10 @@ x: OPERADOR Exp
 teste: IDENTIFICADOR LOGICO Exp 
        | teste CONECTOR teste;
 
-inicializador: IDENTIFICADOR IGUAL Num SEPARADOR teste SEPARADOR Aritmetica
-               | Tipo IDENTIFICADOR IGUAL Num SEPARADOR teste SEPARADOR Aritmetica;
+inicializador: IDENTIFICADOR IGUAL Exp SEPARADOR teste SEPARADOR Aritmetica
+               | Tipo IDENTIFICADOR IGUAL Exp SEPARADOR teste SEPARADOR Aritmetica;
 
-Aritmetica: IDENTIFICADOR IGUAL Termo OPERADOR Termo 
-            | %empty;
+Aritmetica: IDENTIFICADOR IGUAL Termo OPERADOR Termo;
 
 Termo: Num 
        | IDENTIFICADOR 
