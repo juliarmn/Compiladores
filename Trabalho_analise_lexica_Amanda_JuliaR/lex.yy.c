@@ -1,5 +1,5 @@
 
-#line 2 "lex.yy.c"
+#line 3 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -369,8 +369,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 30
-#define YY_END_OF_BUFFER 31
+#define YY_NUM_RULES 31
+#define YY_END_OF_BUFFER 32
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -380,12 +380,12 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[76] =
     {   0,
-        0,    0,   31,   29,   28,    3,   28,   29,   17,   18,
-       26,   20,   21,    6,   12,   19,   18,   15,   18,   16,
-       14,   24,   25,   29,   29,   14,   14,   14,   14,   14,
-       14,   14,   22,   23,    3,   18,    0,   12,    1,    0,
-       14,   27,    1,   14,   14,   14,    9,   14,   14,   14,
-       14,   13,    1,    1,   27,    1,    1,   14,   14,    8,
+        0,    0,   32,   30,   29,    3,   29,   30,   17,   18,
+       27,   21,   22,    6,   12,   20,   19,   15,   19,   16,
+       14,   25,   26,   30,   30,   14,   14,   14,   14,   14,
+       14,   14,   23,   24,    3,   19,    0,   12,    1,    0,
+       14,   28,    1,   14,   14,   14,    9,   14,   14,   14,
+       14,   13,    1,    1,   28,    1,    1,   14,   14,    8,
         4,   14,   14,   14,    1,   14,   10,    2,   14,   14,
        14,   11,    7,    5,    0
     } ;
@@ -500,10 +500,10 @@ static const flex_int16_t yy_chk[160] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[31] =
+static const flex_int32_t yy_rule_can_match_eol[32] =
     {   0,
 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -524,9 +524,9 @@ char *yytext;
     #include <stdio.h>
     #include "Kitty_sintaxe.tab.h"
     int num_linhas = 1, num_erros = 0;
-#line 527 "lex.yy.c"
+#line 528 "lex.yy.c"
 /*Definições*/
-#line 529 "lex.yy.c"
+#line 530 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -743,10 +743,10 @@ YY_DECL
 		}
 
 	{
-#line 41 "Kitty_regras.l"
+#line 42 "Kitty_regras.l"
 
 
-#line 749 "lex.yy.c"
+#line 750 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -815,7 +815,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 43 "Kitty_regras.l"
+#line 44 "Kitty_regras.l"
 {
     printf("\033[1m\033[91mIdentificador inválido: %s - ", yytext);
     num_erros++;
@@ -824,159 +824,164 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 49 "Kitty_regras.l"
+#line 50 "Kitty_regras.l"
 {return (MAIN);}
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 51 "Kitty_regras.l"
+#line 52 "Kitty_regras.l"
 {
     num_linhas++;
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 55 "Kitty_regras.l"
+#line 56 "Kitty_regras.l"
 {return (INT);}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 57 "Kitty_regras.l"
+#line 58 "Kitty_regras.l"
 {return (DOUBLE);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 59 "Kitty_regras.l"
+#line 60 "Kitty_regras.l"
 {return (VIRGULA);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 61 "Kitty_regras.l"
+#line 62 "Kitty_regras.l"
 {return (WHILE);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 63 "Kitty_regras.l"
+#line 64 "Kitty_regras.l"
 {return (FOR);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 65 "Kitty_regras.l"
+#line 66 "Kitty_regras.l"
 {return (IF);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 67 "Kitty_regras.l"
+#line 68 "Kitty_regras.l"
 {return (ELSE);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 69 "Kitty_regras.l"
+#line 70 "Kitty_regras.l"
 {return (PRINT);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 71 "Kitty_regras.l"
+#line 72 "Kitty_regras.l"
 {return (INTEIRO);}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 73 "Kitty_regras.l"
+#line 74 "Kitty_regras.l"
 {return (REAL);}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 75 "Kitty_regras.l"
+#line 76 "Kitty_regras.l"
 {return (IDENTIFICADOR);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 77 "Kitty_regras.l"
+#line 78 "Kitty_regras.l"
 {return (IGUAL);}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 79 "Kitty_regras.l"
+#line 80 "Kitty_regras.l"
 {return (ENDERECO);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 81 "Kitty_regras.l"
+#line 82 "Kitty_regras.l"
 {return (OPERADOR);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 83 "Kitty_regras.l"
-{return (LOGICO);}
+#line 84 "Kitty_regras.l"
+{return (CONECTOR);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 85 "Kitty_regras.l"
-{return (SEPARADOR);}
+#line 86 "Kitty_regras.l"
+{return (LOGICO);}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 87 "Kitty_regras.l"
-{return (PARENTESES_ABRE);}
+#line 88 "Kitty_regras.l"
+{return (SEPARADOR);}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 89 "Kitty_regras.l"
-{return (PARENTESES_FECHA);}
+#line 90 "Kitty_regras.l"
+{return (PARENTESES_ABRE);}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 91 "Kitty_regras.l"
-{return (CHAVE_ABRE);}
+#line 92 "Kitty_regras.l"
+{return (PARENTESES_FECHA);}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 93 "Kitty_regras.l"
-{return (CHAVE_FECHA);}
+#line 94 "Kitty_regras.l"
+{return (CHAVE_ABRE);}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 95 "Kitty_regras.l"
-{return (COLCHETE_ABRE);}
+#line 96 "Kitty_regras.l"
+{return (CHAVE_FECHA);}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 97 "Kitty_regras.l"
-{return (COLCHETE_FECHA);}
+#line 98 "Kitty_regras.l"
+{return (COLCHETE_ABRE);}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 99 "Kitty_regras.l"
-{return (ASPAS);}
+#line 100 "Kitty_regras.l"
+{return (COLCHETE_FECHA);}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 101 "Kitty_regras.l"
+#line 102 "Kitty_regras.l"
+{return (ASPAS);}
+	YY_BREAK
+case 28:
+YY_RULE_SETUP
+#line 104 "Kitty_regras.l"
 {
     printf("\033[1m\033[35mComentário\n");
 }
 	YY_BREAK
-case 28:
-YY_RULE_SETUP
-#line 106 "Kitty_regras.l"
-
-	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 108 "Kitty_regras.l"
+#line 109 "Kitty_regras.l"
+
+	YY_BREAK
+case 30:
+YY_RULE_SETUP
+#line 111 "Kitty_regras.l"
 {
     printf("\033[1m\033[91mTOKEN INVÁLIDO: %s - ", yytext);
     num_erros++;
     printf("Linha: %d \n", num_linhas);
 }
 	YY_BREAK
-case 30:
+case 31:
 YY_RULE_SETUP
-#line 116 "Kitty_regras.l"
+#line 119 "Kitty_regras.l"
 ECHO;
 	YY_BREAK
-#line 979 "lex.yy.c"
+#line 985 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1993,4 +1998,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 116 "Kitty_regras.l"
+#line 119 "Kitty_regras.l"

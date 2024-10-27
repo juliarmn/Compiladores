@@ -18,7 +18,8 @@ REAL {DIGITO}+"."{DIGITO}+
 IGUAL "="
 ENDERECO "@"
 OPERADOR "+"|"-"|"*"|"/"|"%"
-LOGICO ">"|"<"|">="|"<="|"!="|"=="|"&"|"|" 
+CONECTOR "&"|"|"
+LOGICO ">"|"<"|">="|"<="|"!="|"==" 
 SEPARADOR ";"
 PARENTESES_ABRE "("
 PARENTESES_FECHA ")"
@@ -79,6 +80,8 @@ PRINT print
 {ENDERECO} {return (ENDERECO);}
 
 {OPERADOR} {return (OPERADOR);}
+
+{CONECTOR} {return (CONECTOR);}
 
 {LOGICO} {return (LOGICO);}
 

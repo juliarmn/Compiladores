@@ -61,23 +61,24 @@ extern int yydebug;
     ENDERECO = 262,                /* ENDERECO  */
     IGUAL = 263,                   /* IGUAL  */
     SEPARADOR = 264,               /* SEPARADOR  */
-    LOGICO = 265,                  /* LOGICO  */
-    ASPAS = 266,                   /* ASPAS  */
-    PARENTESES_ABRE = 267,         /* PARENTESES_ABRE  */
-    PARENTESES_FECHA = 268,        /* PARENTESES_FECHA  */
-    CHAVE_ABRE = 269,              /* CHAVE_ABRE  */
-    CHAVE_FECHA = 270,             /* CHAVE_FECHA  */
-    COLCHETE_ABRE = 271,           /* COLCHETE_ABRE  */
-    COLCHETE_FECHA = 272,          /* COLCHETE_FECHA  */
-    INT = 273,                     /* INT  */
-    DOUBLE = 274,                  /* DOUBLE  */
-    VIRGULA = 275,                 /* VIRGULA  */
-    MAIN = 276,                    /* MAIN  */
-    PRINT = 277,                   /* PRINT  */
-    WHILE = 278,                   /* WHILE  */
-    IF = 279,                      /* IF  */
-    ELSE = 280,                    /* ELSE  */
-    FOR = 281                      /* FOR  */
+    CONECTOR = 265,                /* CONECTOR  */
+    LOGICO = 266,                  /* LOGICO  */
+    ASPAS = 267,                   /* ASPAS  */
+    PARENTESES_ABRE = 268,         /* PARENTESES_ABRE  */
+    PARENTESES_FECHA = 269,        /* PARENTESES_FECHA  */
+    CHAVE_ABRE = 270,              /* CHAVE_ABRE  */
+    CHAVE_FECHA = 271,             /* CHAVE_FECHA  */
+    COLCHETE_ABRE = 272,           /* COLCHETE_ABRE  */
+    COLCHETE_FECHA = 273,          /* COLCHETE_FECHA  */
+    INT = 274,                     /* INT  */
+    DOUBLE = 275,                  /* DOUBLE  */
+    VIRGULA = 276,                 /* VIRGULA  */
+    MAIN = 277,                    /* MAIN  */
+    PRINT = 278,                   /* PRINT  */
+    WHILE = 279,                   /* WHILE  */
+    IF = 280,                      /* IF  */
+    ELSE = 281,                    /* ELSE  */
+    FOR = 282                      /* FOR  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

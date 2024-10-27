@@ -23,6 +23,7 @@ printf("O erro aparece próximo a linha: %d : %s", yylineno, s);
 %token ENDERECO
 %token IGUAL 
 %token SEPARADOR
+%token CONECTOR
 %token LOGICO
 %token ASPAS
 %token PARENTESES_ABRE 
@@ -75,17 +76,18 @@ Num: INTEIRO
 
 Atribuicao: IDENTIFICADOR IGUAL Exp SEPARADOR ;
 
-Exp: INT x 
-     | Num x 
+Exp:  Num x 
      | IDENTIFICADOR x
      | PARENTESES_ABRE Exp PARENTESES_FECHA x; 
 
 x: OPERADOR Exp 
    | %empty;
 
-teste: IDENTIFICADOR LOGICO Num;
+teste: IDENTIFICADOR LOGICO Exp 
+       | teste CONECTOR teste;
 
-inicializador: IDENTIFICADOR IGUAL Num SEPARADOR teste SEPARADOR Aritmetica;
+inicializador: IDENTIFICADOR IGUAL Num SEPARADOR teste SEPARADOR Aritmetica
+               | Tipo IDENTIFICADOR IGUAL Num SEPARADOR teste SEPARADOR Aritmetica;
 
 Aritmetica: IDENTIFICADOR IGUAL Termo OPERADOR Termo 
             | %empty;
